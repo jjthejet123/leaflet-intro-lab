@@ -1,54 +1,52 @@
-//Create map logistics (view, div call). Set it as variable so it can be called/added to with other functions
+//Creating files
 var mymap = L.map('mapid').setView([51.505, -0.09], 13);
-//var mymap = L.map('mapid').setView([-100, 40], 13);
 //Code in the actual basemap, what will be the basic map display. Make sure to have proper citations for credit. Add it to the variable created above
 var OpenStreetMap_Mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	maxZoom: 19,
 	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 }).addTo(mymap)
-//Create a marker variable to point out a location of interest at a specified latitude and longitude
+// form mark
 var marker = L.marker([51.5, -0.09]).addTo(mymap);
-//Create circle variable to buffer around an area, essentially. Center it on a long/lat point, then size it approptiately, color it
+//Create circle
 var circle = L.circle([51.508, -0.11], {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5,
     radius: 500
 }).addTo(mymap);
-//Create polygon variable to bound an area, set points to define the corners/number of sides
+//Create polygon
 var polygon = L.polygon([
     [51.509, -0.08],
     [51.503, -0.06],
     [51.51, -0.047]
 ]).addTo(mymap);
-//create a popup info attached to the marker
+//create a popup
 marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-//Create popup info attached to circle
+//Create popup circile
 circle.bindPopup("I am a circle.");
-//Create popup info for polygon
+//Create popup polygon
 polygon.bindPopup("I am a polygon.");
-//creates a popup that loads whenever mappage is opened, layer is accessed
+//creates a popup that loads for map
 var popup = L.popup()
     .setLatLng([51.5, -0.09])
     .setContent("I am a standalone popup.")
     .openOn(mymap);
-//Function that creates a full screen alert, overlays entire page that displays coordinates of clicked location
+//Function that creates a notice to user
     function onMapClick(e) {
         alert("You clicked the map at " + e.latlng);
     }
-    //Enables clicks to work on map, for functions specified. Redundant, as code lower down accomplishes same task
+    //allows clicks to work on map
     mymap.on('click', onMapClick);
-//Creates popup again (since this is the same code as before, above, to display a different method of displaying same information of notice of click and long/lat)
+//popup twive 
     var popup = L.popup();
-//function that brings up information that user has clicked a specific lat/long coordinate. Uses a popup instead of an alert to display info
+//allows user to access information
 function onMapClick(e) {
     popup
         .setLatLng(e.latlng)
         .setContent("You clicked the map at " + e.latlng.toString())
         .openOn(mymap);
 }
-//As previously noted, slightly redundant code due to the two examples being about slightly different ways to accomplish the same task, code blocks
-//Personally I would say remove the above line that ties onMapClick function to the map div data, but decided to keep both here just in case
+// allows user to click on map again
 mymap.on('click', onMapClick);
 
 
